@@ -90,9 +90,10 @@ class NumberUtilsTest {
     void testValidInput() {
         //Test case for valid inputs
         //The method should handle valid inputs appropriately and the sum detailed by the add method
-        List<Integer> input1 = new LinkedList<>(List.of(1, 2));//LinkedList used because it is mutable
+        //modified input 1 to validate boundary of 0
+        List<Integer> input1 = new LinkedList<>(List.of(0, 2));//LinkedList used because it is mutable
         List<Integer> input2 = new LinkedList<>(List.of(3, 4));
-        List<Integer> expectedOutput = new LinkedList<>(List.of(4, 6));  //Expected output with add method for valid inputs
+        List<Integer> expectedOutput = new LinkedList<>(List.of(3, 6));  //Expected output with add method for valid inputs
         assertEquals(expectedOutput, NumberUtils.add(input1, input2));
     }
 
@@ -104,6 +105,29 @@ class NumberUtilsTest {
         List<Integer> input1 = new LinkedList<>(List.of(9, 9));
         List<Integer> input2 = new LinkedList<>(List.of(0, 1));
         List<Integer> expectedOutput = new LinkedList<>(List.of(1, 0, 0));  //Expected output for carry over method
+        assertEquals(expectedOutput, NumberUtils.add(input1, input2));
+    }
+
+//Emina Hanic + added test methods for mutation coverage
+    @Test
+    @DisplayName("Boundary Test: 9")
+    void testBoundaryNine() {
+        //test case for boundary validation
+        //this method should behave correctly with 9 as a valid boundary
+        List<Integer> input1 = new LinkedList<>(List.of(5, 9));
+        List<Integer> input2 = new LinkedList<>(List.of(3, 9));
+        List<Integer> expected = new LinkedList<>(List.of(9, 8));
+        assertEquals(expected, NumberUtils.add(input1, input2));
+    }
+
+    @Test
+    @DisplayName("Sum Zero Test")
+    void testSumZero() {
+        //test case for the removal of zeros
+        //this method should return a list of a single 0, not empty
+        List<Integer> input1 = new LinkedList<>(List.of(0));
+        List<Integer> input2 = new LinkedList<>(List.of(0));
+        List<Integer> expectedOutput = new LinkedList<>(List.of(0));
         assertEquals(expectedOutput, NumberUtils.add(input1, input2));
     }
 
